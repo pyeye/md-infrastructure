@@ -1,0 +1,3 @@
+host_user: arthur
+work_dir: /home/arthur/www/maddog
+debug: True

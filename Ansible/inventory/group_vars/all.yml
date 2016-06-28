@@ -1,0 +1,8 @@
+---
+
+project_name: maddog
+project_repo: https://github.com/pyeye/maddog.git
+
+apt_update_cache: yes
+
+host_distribution: ubuntu-trusty

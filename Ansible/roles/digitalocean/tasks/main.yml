@@ -1,0 +1,33 @@
+---
+#Add file2ban, logwatch, logstash?
+- name: apt | install | ntp and ufw 
+  apt: name={{ item }} update_cache=yes state=latest
+  with_items:
+    - ntp
+    - ufw
+
+- name: user | create | deploy
+  user: name=deploy group=sudo password={{ user_password }}
+
+- name: ssh key | add | deploy
+  authorized_key: 
+      user: deploy 
+      key: "{{ lookup('file', './files/maddog.pub') }}"
+
+- name: ufw  | allow | tcp ports
+  ufw: rule=allow port={{ item }} proto=tcp
+  with_items:
+    - 5422
+    - 80
+    - 443
+
+- name: ufw | deny | incoming
+  ufw: state=enabled direction=incoming policy=deny
+
+- name: ufw | state | enabled
+  ufw: state=enabled
+
+- name: copy | config | ssh 
+  copy: src=sshd_config dest=/etc/ssh/sshd_config owner=root group=root mode="u=rw,g=r,o=r"
+  notify: 
+  - restart ssh

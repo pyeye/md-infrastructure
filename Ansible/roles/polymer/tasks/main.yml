@@ -1,0 +1,29 @@
+- name: docker | container | polymer
+  docker:
+    name: polymer-serve2
+    image: pyeye/md-polymer:latest
+    pull: always
+    state: reloaded
+    volumes:
+    - "{{work_dir}}/src/frontend/:/srv/www/maddog/src/frontend/"
+    tags:
+    - polymer_dev
+
+
+- name: docker | container | polymer
+  docker:
+    name: polymer-serve2
+    image: pyeye/md-polymer:latest
+    pull: always
+    state: reloaded
+    command: polymer serve --hostname 0.0.0.0
+    ports:
+    - "8080:8080"
+    volumes:
+    - "{{work_dir}}/src/frontend/:/srv/www/maddog/src/frontend/"
+    tags:
+    - polymer-serve
+    
+    
+#docker run -it -v /home/arthur/www/maddog/src/frontend/:/srv/www/maddog/src/frontend/ --name polymer-dev pyeye/md-polymer:latest /bin/bash
+#docker run -d -p 8080:8080 -v /home/arthur/www/maddog/src/frontend/:/srv/www/maddog/src/frontend/ --name polymer-serve1 pyeye/md-polymer:latest polymer serve --hostname 0.0.0.0

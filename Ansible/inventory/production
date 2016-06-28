@@ -1,0 +1,5 @@
+[production:children]
+webservers
+
+[webservers]
+localhost ansible_connection=local

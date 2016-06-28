@@ -1,0 +1,7 @@
+---
+- name: Base settings on digital ocean
+  hosts: all
+  user: root
+
+  roles:
+    - digitalocean

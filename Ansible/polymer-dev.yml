@@ -1,0 +1,7 @@
+---
+- name: Setting up dev server
+  hosts: all
+  become: yes
+
+  roles:
+    - polymer

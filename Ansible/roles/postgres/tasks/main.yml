@@ -1,0 +1,27 @@
+- name: docker| volume | exists
+  command: docker volume inspect pgdata
+  register: volume_exists
+  failed_when: false
+
+- name: docker| volume | create
+  command: docker volume create --name pgdata
+  when: volume_exists|failed
+
+- name: docker | container | postgres
+  docker:
+    name: postgres
+    image: pyeye/md-postgres:9.5-2
+    pull: always
+    state: reloaded
+    volumes:
+      - "pgdata:/var/lib/postgresql/data"
+      - "{{work_dir}}/src/data/dump:/srv/www/maddog/src/data/dump"
+    ports:
+      - "5432:5432"
+    restart_policy: always
+    env:
+      POSTGRES_USER: maddog
+      POSTGRES_DB: maddog
+      POSTGRES_PASSWORD: maddog
+  tags:
+    - containers

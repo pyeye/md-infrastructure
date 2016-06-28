@@ -1,0 +1,51 @@
+- name: apt | install | OpenSSL
+  apt: name={{ item }} update_cache=yes state=latest
+  with_items:
+    - openssl
+    - libssl-dev
+    - libssl-doc
+  tags:
+    - base
+
+
+- name: apt | install | base packages
+  apt: name={{ item }} update_cache=yes force=yes state=installed
+  with_items:
+    - build-essential
+    - git
+    - curl
+    - libpq-dev
+    - python-dev
+    - python-pip
+    - python-pycurl
+    - whois
+  tags:
+    - base
+
+- name: pip | upgrade | self
+  pip: name=pip state=latest
+  tags:
+    - base
+
+- name: file | mkdir | backend app
+  file: "path={{work_dir}}/src/backend state=directory"
+  tags:
+    - base
+
+- name: file | mkdir | frontend app
+  file: "path={{work_dir}}/src/frontend state=directory"
+  tags:
+    - base
+
+- name: file | mkdir | database dump
+  file: "path={{work_dir}}/src/data/dump state=directory"
+  tags:
+    - base
+
+- name: git | clone | backend
+  git: "repo=https://github.com/pyeye/maddog-back.git dest={{work_dir}}/src/backend/"
+  tags:
+    - base
+    - clone_backend
+
+- include: docker.yml

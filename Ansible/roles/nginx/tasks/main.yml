@@ -1,0 +1,16 @@
+- name: docker | container | nginx
+  docker:
+    name: nginx
+    image: pyeye/md-nginx:latest
+    pull: always
+    state: reloaded
+    restart_policy: always
+    links:
+    - "django:django"
+    ports:
+    - "80:80"
+    volumes:
+    - "{{work_dir}}/src/media/:/srv/www/maddog/src/media/"
+    - "{{work_dir}}/src/static/:/srv/www/maddog/src/static/"
+  tags:
+    - containers
