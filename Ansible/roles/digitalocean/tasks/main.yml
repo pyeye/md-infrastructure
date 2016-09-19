@@ -1,17 +1,33 @@
 ---
 #Add file2ban, logwatch, logstash?
-- name: apt | install | ntp and ufw 
+- name: apt | install | ntp and ufw
   apt: name={{ item }} update_cache=yes state=latest
   with_items:
     - ntp
     - ufw
 
+
+- name: group | exists | wheel
+  group:
+    name: wheel
+    state: present
+
+- name: lineinfile | group | passwordless
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+
 - name: user | create | deploy
-  user: name=deploy group=sudo password={{ user_password }}
+  user:
+    name: deploy
+    groups: wheel
+    append: yes
 
 - name: ssh key | add | deploy
-  authorized_key: 
-      user: deploy 
+  authorized_key:
+      user: deploy
       key: "{{ lookup('file', './files/maddog.pub') }}"
 
 - name: ufw  | allow | tcp ports
@@ -27,7 +43,7 @@
 - name: ufw | state | enabled
   ufw: state=enabled
 
-- name: copy | config | ssh 
+- name: copy | config | ssh
   copy: src=sshd_config dest=/etc/ssh/sshd_config owner=root group=root mode="u=rw,g=r,o=r"
-  notify: 
+  notify:
   - restart ssh

@@ -10,6 +10,7 @@
     ports:
     - "80:80"
     volumes:
+    - "{{work_dir}}/src/frontend/:/srv/www/maddog/src/frontend/"
     - "{{work_dir}}/src/media/:/srv/www/maddog/src/media/"
     - "{{work_dir}}/src/static/:/srv/www/maddog/src/static/"
   tags:

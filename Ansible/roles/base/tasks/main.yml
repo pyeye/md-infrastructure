@@ -42,10 +42,51 @@
   tags:
     - base
 
+- name: file | mkdir | media
+  file: "path={{work_dir}}/src/media state=directory"
+  tags:
+    - base
+
+- name: file | mkdir | static
+  file: "path={{work_dir}}/src/static state=directory"
+  tags:
+    - base
+
 - name: git | clone | backend
   git: "repo=https://github.com/pyeye/maddog-back.git dest={{work_dir}}/src/backend/"
   tags:
     - base
     - clone_backend
+
+- name: git | clone | frontend
+  git: "repo=https://github.com/pyeye/md-front.git dest={{work_dir}}/src/frontend/"
+  tags:
+    - base
+    - clone_frontend
+
+- name: file | copy | database
+  copy: src=/home/arthur/www/maddog/src/data/dump/maddog.sql dest={{work_dir}}/src/data/dump/maddog.sql
+  tags:
+    - base
+
+- name: file | copy | static
+  copy: src=/home/arthur/www/maddog/src/static/ dest={{work_dir}}/src/static/
+  tags:
+    - base
+
+- name: file | copy | event images
+  copy: src=/home/arthur/www/maddog/src/backend/apps/events/admin.py dest={{work_dir}}/src/backend/apps/events/admin.py
+  tags:
+    - backend_admin
+
+- name: sync | folder | frontend build
+  synchronize: src=/home/arthur/www/maddog/src/frontend/build/bundled/ dest={{work_dir}}/src/frontend/build/bundled/
+  tags:
+    - sync_frontend
+
+- name: file | copy | media
+  copy: src=/home/arthur/www/maddog/src/media/ dest={{work_dir}}/src/media/
+  tags:
+    - base
 
 - include: docker.yml
