@@ -28,7 +28,7 @@
 - name: ssh key | add | deploy
   authorized_key:
       user: deploy
-      key: "{{ lookup('file', './files/maddog.pub') }}"
+      key: "{{ lookup('file', '../files/maddog.pub') }}"
 
 - name: ufw  | allow | tcp ports
   ufw: rule=allow port={{ item }} proto=tcp

@@ -1,3 +1,6 @@
 host_user: arthur
 work_dir: /home/arthur/www/maddog
-debug: True
+django_debug: True
+django_settings_module: core.settings.dev
+
+allowed_hosts: "localhost"

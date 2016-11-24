@@ -2,4 +2,4 @@
 webservers
 
 [webservers]
-localhost ansible_connection=local
+95.85.60.149

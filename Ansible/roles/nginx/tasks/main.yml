@@ -1,7 +1,7 @@
 - name: docker | container | nginx
   docker:
     name: nginx
-    image: pyeye/md-nginx:latest
+    image: pyeye/md-nginx-amplify:latest
     pull: always
     state: reloaded
     restart_policy: always
@@ -9,9 +9,16 @@
     - "django:django"
     ports:
     - "80:80"
+    - "443:443"
     volumes:
     - "{{work_dir}}/src/frontend/:/srv/www/maddog/src/frontend/"
     - "{{work_dir}}/src/media/:/srv/www/maddog/src/media/"
     - "{{work_dir}}/src/static/:/srv/www/maddog/src/static/"
+    - "/tmp/letsencrypt:/tmp/letsencrypt"
+    - "/etc/letsencrypt:/etc/letsencrypt"
+    env:
+      API_KEY: "{{amplify_api_key}}"
+      AMPLIFY_HOSTNAME: "{{amplify_hostname}}"
   tags:
     - containers
+    - containers_nginx

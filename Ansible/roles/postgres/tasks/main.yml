@@ -20,8 +20,8 @@
       - "5432:5432"
     restart_policy: always
     env:
-      POSTGRES_USER: maddog
-      POSTGRES_DB: maddog
-      POSTGRES_PASSWORD: maddog
+      POSTGRES_USER: "{{db_user}}"
+      POSTGRES_DB: "{{db_name}}"
+      POSTGRES_PASSWORD: "{{db_password}}"
   tags:
     - containers

@@ -5,12 +5,26 @@
     pull: always
     state: reloaded
     restart_policy: always
-    command: "gunicorn core.wsgi:application -w 3 -b 0.0.0.0:8000 --reload --env DEBUG={{debug}}"
+    command: "gunicorn core.wsgi:application -w 3 -b 0.0.0.0:8000 --reload"
     links:
     - "postgres:postgres"
     volumes:
     - "{{work_dir}}/src/backend/:/srv/www/maddog/src/backend/"
     - "{{work_dir}}/src/media/:/srv/www/maddog/src/media/"
     - "{{work_dir}}/src/static/:/srv/www/maddog/src/static/"
+    env:
+      DEBUG: "{{django_debug}}"
+      DJANGO_SETTINGS_MODULE: "{{django_settings_module}}"
+      ALLOWED_HOSTS: "{{allowed_hosts}}"
+      SECRET_KEY: "{{secret_key}}"
+      EMAIL_HOST: "{{email_host}}"
+      EMAIL_HOST_USER: "{{email_host_user}}"
+      EMAIL_PORT: "{{email_port}}"
+      EMAIL_HOST_PASSWORD: "{{email_host_password}}"
+      DB_HOST: "{{db_host}}"
+      DB_NAME: "{{db_name}}"
+      DB_USER: "{{db_user}}"
+      DB_PASSWORD: "{{db_password}}"
+      DB_PORT: "{{db_port}}"
   tags:
     - containers
