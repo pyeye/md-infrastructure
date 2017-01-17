@@ -1,0 +1,22 @@
+- name: docker| redis volume | exists
+  command: docker volume inspect redisdata
+  register: redis_volume_exists
+  failed_when: false
+
+- name: docker| redis volume | create
+  command: docker volume create --name redisdata
+  when: redis_volume_exists|failed
+
+- name: docker | container | redis
+  docker:
+    name: redis
+    image: redis:3-alpine
+    pull: always
+    state: reloaded
+    restart_policy: always
+    volumes:
+      - "redisdata:/data"
+    ports:
+      - "6379:6379"
+  tags:
+    - containers
