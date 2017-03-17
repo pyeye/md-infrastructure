@@ -6,8 +6,3 @@
     - polymer
 
 #polymer container polymer build
-
-#docker run -it -v /home/arthur/www/maddog/src/frontend/:/srv/www/maddog/src/frontend/ --name polymer-dev pyeye/md-polymer:latest /bin/bash
-#docker run -d -p 8080:8080 -v /home/arthur/www/maddog/src/frontend/:/srv/www/maddog/src/frontend/ --name polymer-serve1 pyeye/md-polymer:latest polymer serve --hostname 0.0.0.0
-#ansible-playbook -i inventory/staging -t base -u deploy --private-key /home/arthur/.ssh/maddog -e 'ansible_port=5422' site.yml
-#ssh -p 5422 -i /home/arthur/.ssh/maddog  deploy@146.185.165.166 95.85.60.149
