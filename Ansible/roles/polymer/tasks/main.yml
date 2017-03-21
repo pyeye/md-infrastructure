@@ -1,8 +1,3 @@
 #polymer container bower install
 
-- name: copy | component | vaadin
-  copy: src=/home/arthur/www/maddog/src/frontend/bower_components/vaadin-date-picker/ dest={{work_dir}}/src/frontend/bower_components/vaadin-date-picker/
-  tags:
-    - polymer
-
 #polymer container polymer build

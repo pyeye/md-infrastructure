@@ -6,7 +6,7 @@
   roles:
     - base
     - postgres
+    - redis
     - django
     - nginx
-    - redis
     - polymer
