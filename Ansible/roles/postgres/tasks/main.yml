@@ -13,7 +13,10 @@
     image: pyeye/md-postgres:9.5-2
     pull: true
     state: started
+    restart: yes
     restart_policy: always
+    networks:
+      - name: maddog
     volumes:
       - "pgdata:/var/lib/postgresql/data"
       - "{{work_dir}}/src/data/dump:/srv/www/maddog/src/data/dump"

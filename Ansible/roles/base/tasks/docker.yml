@@ -40,3 +40,9 @@
   tags:
     - install_docker
     - base
+
+- name: docker | network | create
+  docker_network:
+    name: maddog
+  tags:
+    - create_docker_network

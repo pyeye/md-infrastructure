@@ -4,9 +4,10 @@
     image: pyeye/md-nginx-amplify:latest
     pull: true
     state: started
+    restart: yes
     restart_policy: always
-    links:
-    - "django:django"
+    networks:
+      - name: maddog
     ports:
     - "80:80"
     - "443:443"

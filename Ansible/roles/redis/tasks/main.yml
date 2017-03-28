@@ -13,7 +13,10 @@
     image: redis:3-alpine
     pull: true
     state: started
+    restart: yes
     restart_policy: always
+    networks:
+      - name: maddog
     volumes:
       - "redisdata:/data"
     ports:

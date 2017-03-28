@@ -4,11 +4,11 @@
     image: pyeye/md-django:latest
     pull: true
     state: started
+    restart: yes
     restart_policy: always
     command: "gunicorn core.wsgi:application -w 3 -b 0.0.0.0:8000 --reload --max-requests 1000"
-    links:
-    - "postgres:postgres"
-    - "redis:redis"
+    networks:
+      - name: maddog
     volumes:
     - "{{work_dir}}/src/backend/:/srv/www/maddog/src/backend/"
     - "{{work_dir}}/src/media/:/srv/www/maddog/src/media/"
