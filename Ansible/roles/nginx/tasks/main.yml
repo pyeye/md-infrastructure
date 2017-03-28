@@ -1,9 +1,9 @@
 - name: docker | container | nginx
-  docker:
+  docker_container:
     name: nginx
     image: pyeye/md-nginx-amplify:latest
-    pull: always
-    state: reloaded
+    pull: true
+    state: started
     restart_policy: always
     links:
     - "django:django"

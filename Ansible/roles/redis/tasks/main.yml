@@ -8,11 +8,11 @@
   when: redis_volume_exists|failed
 
 - name: docker | container | redis
-  docker:
+  docker_container:
     name: redis
     image: redis:3-alpine
-    pull: always
-    state: reloaded
+    pull: true
+    state: started
     restart_policy: always
     volumes:
       - "redisdata:/data"
